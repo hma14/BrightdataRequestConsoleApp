@@ -14,13 +14,13 @@ public class BrightDataClient
     private readonly int _pollInterval;
     private readonly int _timeout;
 
-    public BrightDataClient(string apiToken, int pollInterval = 2000, int timeout = 60000)
+    public BrightDataClient(string baseUrl, string apiToken, int pollInterval = 2000, int timeout = 60000)
     {
         _client = new HttpClient();
         _client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiToken}");
         _pollInterval = pollInterval;
         _timeout = timeout;
-        _baseUrl = "https://api.brightdata.com";
+        _baseUrl = baseUrl;
     }
 
     public async Task<Object> CreateJobAsync(string zone, string url, string format = "raw")

@@ -14,8 +14,12 @@ namespace BrightdataRequestConsoleApp
                 .Build();
 
             var settings = config.GetSection("BrightData").Get<BrightDataSettings>();
-
-            var client = new BrightDataClient(settings.ApiToken);
+            if (settings == null)
+            {
+                Console.WriteLine("Failed to load BrightData settings from configuration.");
+                return;
+            }
+            var client = new BrightDataClient(settings.URL, settings.ApiToken);
 
             // Now call your methods:
             var zone = "serp_api2";
@@ -26,7 +30,7 @@ namespace BrightdataRequestConsoleApp
 
 
             // Convert JsonElement to string
-           // var html = result.GetRawText();
+            // var html = result.GetRawText();
 
             Console.WriteLine(result);
         }
